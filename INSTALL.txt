@@ -1,0 +1,142 @@
+Viralator - Installation
+
+
+There are specific instructions for Slackware here written by David Wilson (dave at linuxbox.co.za).
+
+How it Works
+Pick up the url of the file the user wants to download
+Download the file into its own directory on the server - useing wget
+Show status of download in pop up window.
+Run virus scanner against this file and have virus scanner clean or delete any infected files
+Check to see if the file still exists after scan
+If no virus found start automated download like Tucows website does
+If virus is found display an "virus found" message
+Have close window button on popup windows that deletes the downloaded file
+Collecting the software you need
+Squid proxy server www.squid-cache.org (you probably already have this)
+Apache Web Server (you probably have this program)
+Apache-suexec (some packaged versions of Apache come with this, Mandrake Linux does not) See the FAQ, you may not need this
+Squirm Redirector 1.23 for Squid www.senet.com.au/squirm/ (rpm available) or SquidGuard
+A antivirus scanner - a complete list can be found at the About section
+Setup steps
+I am assuming that you have already got Apache, Squid and (maybe) Apache-suexec installed, please refer to the install guide that comes with each of those programs.
+Use a redirector: we have used Squirm and received some positive reports about using SquidGuards as well.
+Squirm
+Install Squirm 1.23. If you installed squid 1.23 from rpm it expects to find sqirm.paterns in /usr/etc - I dont know why! Just copy it there or symlink it from /etc/squid/.
+Add the following lines to your squirm.paterns file change [your proxy ip] to the ip or address of the proxy server.
+        abortregexi (^http://[your proxy ip].*) #eg  (^http://192\.168\.100\.1/.*)
+	abortregexi (^http://[your proxy fully qualified domain name].*)
+        regexi (^.*\.zip$) http://[yourproxyip]/cgi-bin/viralator.cgi?url=|\1
+        regexi (^.*\.doc$) http://[yourproxyip]/cgi-bin/viralator.cgi?url=|\1
+        regexi (^.*\.exe$) http://[yourproxyip]/cgi-bin/viralator.cgi?url=|\1
+keep adding lines for each type of file you wish to scan.
+Ps: If you installed Squirm 1.0 remove the ^ from each line.
+Ps2: For Viralator beta versions (0.9pre2.4 and later) just remove the pipe symbol from each line, like this:
+regexi (^.*\.zip$) http://[yourproxyip]/cgi-bin/viralator.cgi?url=\1
+Without this modification, the BETA version of Viralator will not work.
+SquidGuard
+Documentation provided by Jorge Flores (JorgeF at micmac.com.br)
+squidGuard.conf --> /etc/squid/squidGuard.conf
+
+Logdir /var/log
+Dbhome /etc/squid/squidGuard/db
+
+#### Group of domains & urls with access permit
+dest permitidos {					
+	domainlist	permitidos/domais		  
+	urllist	permitidos/urls		 
+}							
+
+#### "permitidos" is the name of control list
+#### "domains" a file in the subforder permitidos under folder db
+(/etc/squid/squidGuard/db)
+#### "urls" a file in the  subforder permitidos under folder db
+(/etc/squid/squidGuard/db)
+
+#### Group of domains & urls with access forbidden
+dest proibidos {
+	domainlist	proibidos/domains 
+	urllist	proibidos/urls
+}
+
+#### "proibidos" is the name of control list
+#### "domains" a file in the subforder proibidos under folder db
+(/etc/squid/squidGuard/db)
+#### "urls" a file in the  subforder proibidos under folder db
+(/etc/squid/squidGuard/db)
+
+#### Group of file types to be scanned or forbidden to download
+dest file {
+	expressionlist proibidos/files
+}
+
+#### "file" is the name of control list
+#### "files" a file in the  subforder proibidos under folder db
+(/etc/squid/squidGuard/db
+
+#### Group of users to apply the polices
+src users {
+	userlist	proibidos/usuarios
+}
+
+#### "users" is the name of control list
+#### "user" a file in the  subforder proibidos under folder db
+(/etc/squid/squidGuard/db
+
+#### Apply rules based in the created control list above
+acl {
+	users {
+		pass permitidos !proibidos !files all 
+		redirect http://mywebserver/forbidden.html
+	}
+	default {
+		pass !files all
+		redirect
+http://mywebserver/cgi-bin/viralator.cgi?url=%u
+}
+If the user is in the "users" control list the rule are: pass domains and urls in the "permitidos" control list; blocked the acces to sites and domains in the "proibidos" control list; pass only download files NOT matched in the "file" control list.
+For all other users pass all and redirect the download file types to the viralator.cgi .
+The files: /etc/squid/squidGuard/db/proibidos/domains
+ninfetas.com.br
+Microsoft.com
+/etc/squid/squidGuard/db/proibidos/url
+www.uol.com.br/playboy
+/etc/squid/squidGuard/db/proibidos/usuarios
+Jorge
+Pedro 
+Paulo
+/etc/squid/squidGuard/db/proibidos/files:
+(\.exe$|\.com$|\.bat$|\.zip$)
+Make sure that Apache knows about each mime type of the files you want to scan or all you will get is a screen full of binary.
+Edit squid.conf adding Squirm or any other redirector by adding these lines:
+redirect_program /usr/squid/bin/"redirector binary name"
+redirect_children 10
+You can put a higher number at "redirection_children" with you have many users. You should test this parameter.
+
+Of course, don't put the double quote in the squid.conf file. Just put the binary filename of the redirector you're using.
+
+Create a user and group for suexec to use. I called mine viralator. You can ignore this if you are not using suexec.
+Add the user and group information to your apache vhosts.conf or httpd.conf file. This enables suexec. Here is an example from my vhosts.conf file
+        VirtualHost 192.168.100.1
+        ServerAdmin webmaster@loddington.com
+        DocumentRoot /var/www/html
+        ServerName proxy.loddington.com
+        ErrorLog logs/error_log
+        TransferLog logs/access_log
+        ScriptAlias /cgi-bin/ /var/www/cgi-bin/
+        User viralator
+        Group viralator
+        /VirtualHost
+Create a directory in a web viewable area (inside htdocs or html directory) called downloads and set permissions to 755
+Copy this script to your cgi-bin
+Change the ownership and group of your cgi-bin to viralator (chown viralator.viralator -R cgi-bin) You can ignore this if you are not using suexec
+Make sure that you have correct file permissions for this script. I used chmod 755 viralator.cgi
+Edit the viralator script to make sure you have the correct settings for the location of your virus scanner, wget, web root and download directory. It is all together under housekeeping on line 27.
+Restart Squid and Apache so your changes can take effect.
+Since version 0.8 we no longer need to set the users browser to exclude the proxy IP address from being cached as we use the abortregexi command in squirm.patterns
+Try to download a zip file, if it does not work look in the Apache error logs or the redirector error logs
+Try to download this test zip file. It contains the eicar test virus signature. It is not a real virus and is harmless but it will set off most virus scanners.
+Look in the FAQ for solutions to some common problems and information on how to make wget use the proxy so downloads are cached
+
+
+Feedback is always welcome.

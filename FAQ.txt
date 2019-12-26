@@ -1,0 +1,138 @@
+Viralator - FAQ
+This program sucks!
+What are the alternatives to using this program?
+Whats the deal with the license?
+My favorite virus scanner is not supported. Why not?
+I'm still having problems and your FAQ does not mention my problem.
+When I try and download a file I get a loop
+Is there a mailing list?
+Are you aware that wget is not caching the downloads?
+I want to run AdZap at the same time as squirm.
+Squirm has awful documentation, how do I do X?
+Do I really need to run apache-suexec?
+Who are you?
+Why did you write this in Perl and not #insert favorite language here#
+Where are you? Why do you reply to my emails in the middle of the night?
+I want XXX feature, so what should I do?
+My boss won't let me use this because it is free software.
+IE has problems when visiting some FTP sites
+I set squirm.patterns to look for .XXX and I get is a screen full of garbage.
+I have a nasty loop and the popup window says it is trying to find a server that does not exist
+Some sites use .exe as a webpage file extension and Viralator tries to scan it
+Your install instructions don't fit my setup, I run #insert distro here#.
+I tried to make a test with Viralator and got the following error "open3: exec of #viruscanner name# failed at /var/www/cgi-bin/viralator.cgi".
+Everytime I try to make a download I receive the message "You cannot download from this site! The given url is not valid. Please contact your system administrator for details.".
+My Viralator install works with sites that provide download through HTTP. But if it's a FTP request, Viralator doesn't do anything?
+How can I setup the proxy to avoid Viralator fetching updates from Windows Update feature for Microsoft OS?
+I try to download a file, but everytime I go a message like "Insecure directory in $ENV{PATH} while running with -T switch at /usr/lib/perl5/5.8/IPC/Open3.pm".
+
+
+
+
+Q. This program sucks! (not really a question, but I felt a response was necessary)
+
+A. Don't use it then.
+Q. What are the alternatives to using this program?
+
+A. There are 2 alternatives that I know of:
+Trend have virus Wall which is a little expensive.
+Viromat from http://www.hycomat.co.uk/viromat/, a PHP program that works in a very similar way to Viralator and the source of my inspiration after failing to get it to install. I borrowed the format of the squirm.patterns file from this project.
+Q. Whats the deal with the license?
+
+A. I had this crazy thought that I should be compensated for my work. I didn't think I was asking for much, I didn't hide the code or stop people changing it or using it and I even gave an innovative alternative for people with difficult financial controllers. If someone can come up with a better license that makes everyone happy let me know. I'm not in this for the money but the hardware was a nice thought.
+Q. My favorite virus scanner is not supported. Why not?
+
+A. It is not supported because either I did not know about it or I could not get a copy of it. Send through your request and the address of where I can get a copy of the virus scanner and I will put it in the next version.
+Q. I'm still having problems and your FAQ does not mention my problem.
+
+A. Have you read the install instruction? Have you read them again? If so you can subscribe to the mailing list. Please spend sometime reading the mailing list rules (http://viralator.sourceforge.net/install.html).
+We will try to help and I might even add it to the FAQ section. Also see the forum page for install help.
+Q. When I try and download a file I get http://192.168.100.1//cgi-bin/viralator.cgi?action=popup&fileurl=http://192.168.100.1//cgi-bin/viralator.cgi? .... in a huge string in the popup and no file?
+
+A. You need to tell your browser not to use the proxy when getting files from the machine the proxy server is on. Otherwise you get a nasty loop. See my proxy settings in Netscape. This has been solved! The instructions for 0.8 tell you to add this abortregexi (^http://proxyipaddress/.*) to the first line of your squirm.patterns file (only tested with squirm 1.23). You need to put a backslash in front of each dot. ie (^http://192\.168\.100\.1/.*) or (^http://myproxy\.mynetwork\.com/.*)
+Q. Is there a mailing list?
+
+A. Yes, there is. You can see more information about clicking here.
+Q. Are you aware that wget is not caching the downloads?
+
+A. Yes, by default wget does not use squid. If it did it would launch Viralator when it tried to retrieve your file. The fix to this is to use setup the redirector to stop sending requests through to the Viralator script from wget on the proxy server. Then alter wgetrc so it uses Squid this way it uses the proxy but does not use the redirector. Have a look at this page to see how it works.
+Since version 0.9pre2.6 Viralator doesn't use wget anymore.
+Q. I want to run AdZap at the same time as squirm.
+
+A. This is a great idea, it is called chaining. Instructions for how to run squirm and AdZap together can be found on the AdZap website. I will be doing my own version of this documentation very soon.
+Q. Squirm has awful documentation, how do I do X?
+
+A. I know the Squirm 1.23 documentation is very limited, if it is not Viralator related I cant really help you, contact the Squirm author/maintainer. You can try using Squidguard or Jesred instead of Squirm as redirectors.
+Q. Do I really need to run apache-suexec?
+
+A. No. Some people (including me) have reported making Viralator run as the apache.apache user/group works for them. I started using suexec because I did not have permissions to uncompress files using Inoculate under Mandrake 7.2. As long as the user that runs apache can also run the virus scanner it should work. Just be careful of your security and permissions!
+Q. Who are you?
+
+A. Obviously someone without much of a life.
+Q. Why did you write this in Perl and not #insert favorite language here#
+
+A. Perl is great, it is easy for other to read and almost everything I code starts life as Perl to test its stability and performance before it is rewritten in C, C++ or whatever.
+Q. Where are you? Why do you reply to my emails in the middle of the night?
+
+A. Sydney, Australia. Amazingly time is different outside of the USA.
+Q. I want XXX feature?
+
+A. Email me or vist the developers forum page.
+Q. My boss won't let me use this because it is free software.
+
+A. Get your boss and read the license, its not free as free beer. Free means "freedom" here. There are a lot of really good free software out there, some of them even better than comercial one.
+Q. IE has problems when visiting some anonymous FTP sites
+
+A. Internet Explorer sends a username and password by default. I will get to this problem but in the mean time all I can say is disable proxying of FTP in your users preferences.
+Q. I set squirm.patterns to look for .XXX and I get is a screen full of garbage.
+
+A. Set your mime types in apache. File types like .xls may not be understood by apache. Set each mime type in httpd.conf or apache-mime.types and restart apache. As an example microsoft excel is application/vnd.ms-excel xls
+I found a list of mime types here: ftp://ftp.isi.edu/in-notes/iana/assignments/media-types/media-types
+Q. I have a nasty loop and the popup window says it is trying to find a server that does not exist.
+
+A. check httpd.conf in apache for server name. make sure it is either your IP address or the FQDN of your server
+Q. Some sites use .exe as a webpage file extension and Viralator tries to scan it
+
+A. I have noticed www.thawte.com does this too. At the moment there is not much you can do except not scan for .exe or block the site from being scanned in the redirector rules. For Squirm, the abortregexi (^http://www\.thawte\.com/.*) parameter will do it. I will look at a solution to this in the future. If anyone has any ideas please send them through.
+Q. Your install instructions don't fit my setup, I run Slackware.
+
+A. Yes, I know not everyone uses my setup. I don't run Slackware but fortunately for you others do and have done the hard work for you. Have a look at these alternative install instructions.
+Q. I tried to make a test with Viralator and got the following error "open3: exec of #viruscanner pathname# failed at /var/www/cgi-bin/viralator.cgi".
+
+A. Edit the viralator.conf configuration file. Look for the line
+scannerpath ->
+and write there the correct pathname for your viruscanner executable file.
+Q. Everytime I try to make a download I receive the message "You cannot download from this site! The given url is not valid. Please contact your system administrator for details.".
+
+A-1. Edit your webbrowser configuration and include the Viralator web server address in "No proxy for" section of it.
+A-2. The requested URL may contain invalid characters indeed.
+Viralator is construct based in the URL specification. The CGI will receive and URL and expects to find a link to a file (that will be download and scanned) which ends the URL line. For example, the line bellow is a valid example:
+http://server.com/files/content.zip
+The problem is, the world is not a perfect place, and some admins create URL like this one:
+http://server.com/servlet/something?zsde=aooinm&msoff=jsiueuf&oswd=deef&file=content.zip
+It's a problem to Viralator to get a file with this URL if it doesn't point to a regular file, as expected. Worst, there is a high probability that the URL parser will fail to get the correct "path" to the file, even if the URL points to a regular file.
+While is not a easy task to create a better "URL parser", it's easy to avoid such problems with Viralator if the admin creates better filters in the redirection program.
+The first approach is: use regular expression operator "$" to indicate that the file extension must finish the URL, like this example:
+       *.\.zip$
+       *.\.exe$
+       *.\.doc$
+Creating filters without this operator will lead to errors. Viralator should be able to check with the URL received is okay, but until that the admin can avoid errors creating filters like that.
+To avoid problem with "dinamic" URL's, just include as "abort redirection" section in the redirection program url that contains "?", "=" or "&". In the RFC (from W3C) this symbols indicates queries and shouldn't be sent to Viralator (at least at this very stage of development).
+Q. My Viralator install works with sites that provide download through HTTP. But if it's a FTP request, Viralator doesn't do anything?
+
+A. Setup your browser to use the Squid as proxy for FTP requisitions. Check if the redirector configuration is redirecting FTP request to viralator.cgi as well.
+Q. How can I setup the proxy to avoid Viralator fetching updates from Windows Update feature for Microsoft OS?
+
+A. Create the following rule in squid.conf file:
+acl Winupdate dstdomain .microsoft.com     # Dot is important
+redirector_access deny Winupdate
+This will:
+to avoid the viralator process to intercept downloads from *.microsoft.com .
+to let Viralator work for any other downloads.
+to keep using other Squidguard redirections (blacklists).
+Q.I try to download a file, but everytime I go a message like "Insecure directory in $ENV{PATH} while running with -T switch at /usr/lib/perl5/5.8/IPC/Open3.pm".
+
+A. This happens because Viralator uses the Taint mode provided by default by Perl. This means that any foreigner data (not defined by the code itself, but provided by any other external source) is considered dangerous. Taint mode defines some conditions to allow the foreigner data to be used. In the case of this error message it means that the directory where is located the viruscanner program probably has write permission for everyone. You must check the directory permissions and change them using chmod program. This usually solves the problem:
+chmod o-w /usr
+chmod o-w /usr/bin
+Suposing, of course, that you're using /usr/bin as the pathname to the viruscanner program.

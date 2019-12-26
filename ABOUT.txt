@@ -1,0 +1,42 @@
+Viralator - a simple way to protect your users from themselves
+
+Viralator is a Perl script that virus scans HTTP/FTP downloads request on a UNIX server after passing through the Squid proxy server.
+
+Even when I implemented virus protection for my network email server we still continued to get the odd virus. Most of the viruses came from people using free webmail accounts like Hotmail or Yahoo and downloading the infected attachments to their machines or through downloading junk. Rather than block access to the users I decided to look at how we could better protect the network. I looked at a couple of different products both comercial and free but they were either too expensive or did not meet my needs.
+
+That is how Viralator was born. Since version 0.8 Viralator is licenced under the GPL. Please feel free to send contributions.
+
+Supported Operational Systems
+Viralator should work in any UNIX system that uses Apache and Squid servers. We have reports about successful instalations on:
+
+RedHat Linux
+Mandrake Linux
+SuSe Linux
+e-Smith Linux
+Slackware Linux
+Conectiva Linux
+Debian Gnu Linux
+It should work elsewhere too, let me know if it does. Feedback is always welcome
+
+Supported Redirectors
+Squirm
+SquidGuard
+Jesred
+Supported Virus Scanners
+AntiVir
+AVP
+RAV
+Inoculate
+Sophos Sweep
+McAfee
+Trend
+Clamav
+Bit Defender (free edition)
+Acknowledgements
+The original concept for Viralator came from the Viromat project. Without Viromat the Viralator project would not have had a starting point. We can also thank Ralph Meyer for badgering me into releasing the script under the GPL.
+
+The Viralator logo design was created and gently given by Alessandra Fustinoni Camargo (alessandra.camargo (at) gmail.com).
+
+
+
+Programming Republic of Perl	SourceForge Logo
