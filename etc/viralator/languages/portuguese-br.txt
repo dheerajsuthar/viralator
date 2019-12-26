@@ -1,0 +1,58 @@
+# LANGUAGE FILE:Brazilian Portuguese:0.9.6
+# TRANSLATOR:Andre Rocha:andre-rocha@click21.com.br
+
+downloading  = Baixando...   
+authrequired = Autorização necessária 
+pleaseuserpass = Entre o usuario e senha para 
+wusername = Usuario
+wpassword = Senha
+Submit = Enviar
+fileremoved = Arquivo removido
+wviruscan = Verificando Virus em 
+takeawhile = (isto pode levar algum tempo...)
+oktodown = O arquivo não possui Virus!
+oncedown = Após salvar o arquivo, clique no botão abaixo para fechar esta janela.
+wclosew = Fechar Janela
+vfounddl = ALERTA: virus encontrado no arquivo solicitado
+wremoving = Removendo
+wfromsrv = do Servidor
+downend = Download Terminado
+maint = Mantendo
+forfuture = no Servidor para futuros downloads
+admincall = Contate o administrador do sistema para mais informações.
+progress = Progresso do Download:
+finished = Completo.
+presentation = Sua solicitação será encaminhada ao Viralator.
+startclick = Para iniciar o download clique em 
+meanwhile = Enquanto o arquivo solicitado é verificado, você pode:
+requestpage = Para retornar a página de onde foi solicitado o arquivo clique 
+mainpage = Para retornar a página principal 
+here = AQUI
+start = DOWNLOAD
+kill = Finalizando processo de download ...
+totry = Clique para tentar novamente
+tryagain = Tentar novamente
+filetype = Tipo do Arquivo:  
+filesize = Tamanho do Arquivo:  
+done = feito 
+
+#Error messages
+
+error = ERRO
+warning = ALERTA!
+noparam = Nenhum parâmetro recebido.
+stop = INTERROMPER
+antivirus_error = Erro ao verificar arquivo.
+repository = Não é possível ler o repositório de arquivos baixados.
+download_error = Não é possível fazer o download do arquivo solicitado.
+invalid_char = Caracteres inválidos em 
+missing_parameter = este parâmetro deve possuir um valor.
+rm_error = Ocorreu um erro ao remover o arquivo baixado.
+md5_error = A informação repassada é incorreta.
+no_resource = A fonte solicitada não existe.
+filenotfound = Arquivo não encontrado.
+hostnotfound = Host não encontrado.
+downabort = Download Cancelado.
+dinerr = Você não pode fazer download desta página!
+urlerr = O endereço repassado é inválido.
+autherr = Ocorreu um erro no processo de autenticação. Certifique-se de ter informado corretamente o usuário e a senha.

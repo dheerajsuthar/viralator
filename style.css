@@ -1,0 +1,61 @@
+A:link { color: #0000FF; text-decoration: none; }  
+A:visited { color: #6600FF; text-decoration: none; }  
+A:active { color: #DC143C; }  
+A:hover {  text-decoration: underline; }  
+body { font-family: Verdana,Arial,Helvetica;
+       SCROLLBAR-FACE-COLOR: #006699;  
+       SCROLLBAR-HIGHLIGHT-COLOR: #0099FF;
+       SCROLLBAR-SHADOW-COLOR: #0099FF;
+       SCROLLBAR-3DLIGHT-COLOR: #336666;
+       SCROLLBAR-ARROW-COLOR: #0099FF; 
+       SCROLLBAR-TRACK-COLOR: #333366; 
+       SCROLLBAR-DARKSHADOW-COLOR: #333366; 
+       rgb: } 
+h3 { font-family: Verdana,Arial,Helvetica; }  
+td { font-family: Verdana,Arial,Helvetica; }  
+p { font-family: Verdana,Arial,Helvetica; }  
+b { font-family: Verdana,Arial,Helvetica; }
+li { font-family: Verdana,Arial,Helvetica; } 
+
+.scanner { font-family: "Courier New";
+    		   color: red;
+           padding-left: 25pt;
+	     }
+.translation-list-header { background-color: rgb(200, 200, 200);
+    color: rgb(0, 0, 0);
+    border: 1px solid rgb(200, 200, 200);
+    padding: 4px;
+    spacing: 0px;
+     
+  }
+
+.translation-list-cell { border: 1px solid rgb(200, 200, 200);
+    background-color: rgb(255, 255, 255);
+    empty-cells: show;
+    padding: 4px;
+    spacing: 0px;
+    text-align: center;
+  
+  }
+  
+.translation-list { border: 0px;
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+    
+  }
+
+	.download-info { border: 0px;
+			border-collapse: collapse;
+
+	}
+
+	.download-info-cell {
+
+    border: 1px solid rgb(200, 200, 200);
+    background-color: rgb(255, 255, 255);
+    empty-cells: show;
+    padding: 4px;
+    spacing: 0px;
+
+	}

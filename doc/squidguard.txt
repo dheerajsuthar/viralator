@@ -1,0 +1,87 @@
+Provided by Jorge Flores" <JorgeF@micmac.com.br>
+
+squidGuard.conf --> /etc/squid/squidGuard.conf
+
+Logdir /var/log
+Dbhome /etc/squid/squidGuard/db
+
+
+#### Group of domains & urls with access permit
+dest permitidos {					
+	domainlist	permitidos/domais		  
+	urllist	permitidos/urls		 
+}							
+
+#### "permitidos" is the name of control list
+#### "domains" a file in the subforder permitidos under folder db
+(/etc/squid/squidGuard/db)
+#### "urls" a file in the  subforder permitidos under folder db
+(/etc/squid/squidGuard/db)
+
+#### Group of domains & urls with access forbidden
+dest proibidos {
+	domainlist	proibidos/domains 
+	urllist	proibidos/urls
+}
+
+#### "proibidos" is the name of control list
+#### "domains" a file in the subforder proibidos under folder db
+(/etc/squid/squidGuard/db)
+#### "urls" a file in the  subforder proibidos under folder db
+(/etc/squid/squidGuard/db)
+
+#### Group of file types to be scanned or forbidden to download
+dest file {
+	expressionlist proibidos/files
+}
+
+#### "file" is the name of control list
+#### "files" a file in the  subforder proibidos under folder db
+(/etc/squid/squidGuard/db
+
+#### Group of users to apply the polices
+src users {
+	userlist	proibidos/usuarios
+}
+
+#### "users" is the name of control list
+#### "user" a file in the  subforder proibidos under folder db
+(/etc/squid/squidGuard/db
+
+#### Apply rules based in the created control list above
+acl {
+	users {
+		pass permitidos !proibidos !files all 
+		redirect http://mywebserver/forbidden.html
+	}
+	default {
+		pass !files all
+		redirect
+http://mywebserver/cgi-bin/viralator.cgi?url=%u
+}
+
+	if the user is in the "users" control list the rule are: pass
+domains and urls in the "permitidos" control list; blocked the acces
+to sites and domains in the "proibidos" control list; pass only
+download files NOT matched in the "file" control list. 
+    	For all other users pass all and redirect the download file
+types to the viralator.cgi  
+
+The files:
+/etc/squid/squidGurad/db/proibidos/domains
+ninfetas.com.br
+Microsoft.com
+
+/etc/squid/squidGurad/db/proibidos/url
+www.uol.com.br/playboy
+
+/etc/squid/squidGurad/db/proibidos/usuarios
+Jorge
+Pedro 
+Paulo
+
+/etc/squid/squidGurad/db/proibidos/files
+(\.exe$|\.com$|\.bat$|\.zip$)
+
+	
+

@@ -1,0 +1,58 @@
+# LANGUAGE FILE:German:0.9.5 
+# TRANSLATOR: Stefan-Michael Guenther
+
+downloading  = Downloading...
+authrequired = Eine Anmeldung ist erforderlich
+pleaseuserpass = Bitte geben Sie Ihren Benutzernamen und Ihr Passwort f&uuml;r
+wusername = Benutzername
+wpassword = Passwort
+Submit = Senden
+fileremoved = Datei wurde gel&ouml;scht
+wviruscan = Virus Scanner eingeschaltet
+takeawhile = (dies kann eine Weile dauern).
+oktodown = Datei kann heruntergeladen werden.
+oncedown = Klicken Sie nach dem Download auf die Schaltfl&auml;che, um das Fenster zu schliessen.
+wclosew = Fenster schliessen
+vfounddl = ALARM: In der zu ladenden Datei wurde ein Virus gefunden
+wremoving = L&ouml;sche
+wfromsrv = vom Server
+downend = Download abgeschlossen
+maint = Beibehalten
+forfuture = auf dem Server f&uuml;r weitere Downloads
+admincall = Bitte kontaktieren Sie Ihren System Administrator f&uuml;r weitere Informationen.
+progress = Fortschritt des Download-Prozesses:
+finished = Abgeschlossen.
+presentation = Ihr Download wird von Viralator &uuml;berwacht.
+startclick = Dr&uuml;cken Sie die Schaltfl&auml;che, um den Download zu starten:
+meanwhile = W&auml;hrend die Datei auf Viren &uuml;berpr&uuml;ft wird, k&ouml;nnen Sie:
+requestpage = Klicken Sie hier, um die Datei herunterzuladen
+mainpage = Klicken Sie hier, um zur Startseite zur&uumlck zu kehren
+here = hier
+start = Download starten
+kill = Download Vorgang beenden ...
+totry = F&uuml;r einen neuen Versuch, bitte klicken
+tryagain = Erneuter Versuch
+filetype = Dateityp
+filesize = Dateigr&ouml;sse
+progress = Fortschrittsanzeige f&uuml;r den Download:
+
+#Error messages
+
+error = FEHLER
+warning = WARNUNG
+noparam = Keine Parameter angegeben.
+stop = Stop
+antivirus_error = Beim &Uuml;berpr&uuml;fen der Datei ist ein Fehler aufgetreten.
+repository = Das Downloadverzeichnis kann nicht angelegt werden!
+download_error = Die gew&uuml;nschte Datei konnte nicht geladen werden.
+invalid_char = Ung&uuml;ltiges Zeichen in
+missing_parameter = dieser Parameter muss einen Wert haben.
+rm_error = Fehler beim L&ouml;schen der heruntergeladenen Datei.
+md5_error = Die angegebene Information ist nicht korrekt.
+no_resource = Die angegebene Ressource existiert nicht.
+filenotfound = Datei nicht gefunden.
+hostnotfound = Server nicht gefunden.
+downabort = Download abgebrochen.
+dinerr = Sie k&ouml;nnen von diesem Server nichts herunterladen!
+urlerr = Die angegebene URL ist ung&uuml;ltig.
+autherr = Bei der Anmeldung ist ein Fehler aufgetreten. Bitte &uuml;berpr&uuml;fen Sie Ihre Eingaben.

@@ -1,0 +1,57 @@
+# LANGUAGE FILE:Français:0.9.2.6
+
+downloading  = Téléchargement en cours ...
+authrequired = Vous devez vous authentifier sur le domaine
+pleaseuserpass = Merci d'entrer votre identifiant et votre mot de passe pour
+wusername = Identifiant
+wpassword = Mot de passe
+Submit = Soumettre
+fileremoved = Fichier effacé
+wviruscan = Scan antivirus lancé sur
+takeawhile = (cela peut prendre un moment, merci de patienter).
+oktodown = Fichier bon pour le téléchargement.
+oncedown = Une fois le téléchargement terminé cliquez sur le bouton ci-dessous pour fermer cette fenêtre.
+wclosew = Fermer la fenêtre
+vfounddl = ALERTE: un virus a été trouvé dans le fichier demandé
+wremoving = Effacement du fichier
+wfromsrv = du serveur
+downend = Téléchargement terminé
+maint = Fichier conservé
+forfuture = sur le server pour de futurs téléchargements
+admincall = Merci de contacter votre administrateur système pour plus de précisions.
+progress = La progression du téléchargement vous est indiquée ci-dessous:
+finished = Terminé.
+presentation = Votre requête de téléchargement va être traitée par Viralator.
+startclick = Pour commencer votre téléchargement cliquez simplement sur le bouton:
+meanwhile = Pendant que le fichier demandé est scanné par l'antivirus vous pouvez choisir:
+requestpage = D'aller sur la page de téléchargement du fichier, cliquez
+mainpage = D'aller sur la page d'accueil du serveur, cliquez
+here = Ici
+start = Commencer le téléchargement
+kill = Arrêt du processus de téléchargement...
+totry = Cliquez pour essayer à nouveau
+tryagain = Essayez à nouveau
+filetype = Type de fichier
+filesize = Taille du fichier
+progress = Avancement du téléchargement:
+
+#Error messages
+
+error = ERREUR
+warning = ATTENTION
+noparam = Aucun paramètre reçu.
+stop = Arrêter
+antivirus_error = Erreur lors de la vérification par l'antivirus.
+repository = Impossible de lire dans le répertoire de téléchargement.
+download_error = Le fichier demandé ne peut être téléchargé.
+invalid_char = Caractères invalides dans
+missing_parameter = ce parametre doit avoir une valeur.
+rm_error = Une erreur s'est produite lors du téléchargement du fichier.
+md5_error = l'information fournie est incorrecte.
+no_resource = La ressource demandée n'existe pas.
+filenotfound = Fichier introuvable.
+hostnotfound = Hôte introuvable.
+downabort = Téléchargement interrompu.
+dinerr = Vous ne pouvez pas télécharger depuis ce site!
+urlerr = l'url demandée est invalide.
+autherr = Une erreur s'est produite dans le processus d'authentification. Vérifiez la validité des paramètres d'identifiant et de mot de passe.

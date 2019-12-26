@@ -1,0 +1,123 @@
+<HTML>
+<HEAD>
+<TITLE>Documentacion del Viralator</TITLE>
+</HEAD>
+<BODY>
+<h1 align="center">Documentacion de Viralator</h1>
+<h3>Autor de la traducíon: Jaime David Grimalt Climent <kopti at lycos.es></h3>
+
+<P>Este documento intenta mostrar como funciona Viralator y como configurarlo.
+
+<h3>Como funciona</h3>
+
+<P>
+Viralator funciona como 'gateway' o puente entre los archivos a los que el usuario hace peticion y el servidor que contiene los archivos. El usuario envia la peticion del archivo a Squid, este pasa la peticion al programa de redireccion (Squirm, por ejemplo). El programa de redireccion, que ya debe de estar configurado con algunas plantillas de extensiones de archivos, pasara la peticion a Viralator.
+
+<P>
+Entonces, Viralator seguira los siguientes pasos:
+
+<ol>
+  <li>Recoger el url del archivo que el usuario quiere descargar;
+  <li>Descargar el archivo en su propio directorio en el servidor;
+  <li>Mostrar el estado de la descarga en una nueva ventana popup;
+  <li>Ejecutar un programa Antivirus contra este archivo
+  <li>Si el arhivo contiene virus, eliminarlo: se muestra un mensaje al usuario, y se registra el evento en un log;
+  <li>Si no se encuentran virus, ejecutar una descarga automatizada;
+  <li>Mostrar un boton de cierre que elimina (o no, dependiendo de la configuracion de Viralator) el archivo descargado.
+</ol>
+
+<h3>Conseguir el software necesario</h3>
+
+<OL>
+  <LI>Servidor proxy Squid en <A HREF="http://www.squid-cache.org">http://www.squid-cache.org</A>.
+  <LI>Servidor web Apache en <A HREF="http://www.apache.org">http://www.apache.org</A>; Apache-suexec puede que sea necesario, consultar las FAQ.
+  <LI>Squirm Redirector 1.23 para Squid en <A HREF="http://www.senet.com.au/squirm/">http://www.senet.com.au/squirm/</A> (Disponible paquete RPM).
+  <LI>Programa Antivirus - Cualquiera de los siguientes, Inoculate, AntiVir, AVP, RAV, Sophos Sweep, McAfee Trend y Clamav son soportados en el momento en que se escribe este documento.
+  <LI>Viralator en <A HREF="http://viralator.sourceforge.net">http://viralator.sourceforge.net</A>
+
+</OL>
+
+
+<h3>Instalacion</h3>
+
+<OL>
+  <LI>Este documento asume que se tiene Apache, Squid instalados y funcionando, por favor consulte en la guia de instalacion que viene con cada uno de estos programas.
+  <LI>Instalar Squirm 1.23. Si se ha instalado Squirm desde un paquete RPM, este espera encontrar el archivo squirm.paterns en /usr/etc - No se porque! Simplemente copielo ahi o cree un vinculo simbolico desde /etc/squid
+  <LI>Anada las siguientes lineas al archivo squirm.patterns; cambie [yourproxyip] por la direccion ip de su servidor proxy.
+  <LI>Desde la version 0.9.2.4, Viralator se entrega con un archivo de configuracion por separado que deberia de localizarse en  /etc/viralator/viralator.conf. Este archivo contiene configuraciones para el lenguaje, variables del antivirus y comportamiento de Viralator. Todas las opciones estan bien comentadas, asi que por favor lealas. 
+  <LI>Los archivos lang se encuentran en /etc/viralator/languages/
+  <LI>Edite el archivo squirm.patterns. Cada 'pattern' (plantilla) que se cree intentara contrastar con la extension que usa  el archivo del que el usuario hace peticion. Por ejemplo:
+
+<pre>
+regexi (^.*\.zip$) http://[yourproxyip]/cgi-bin/viralator.cgi?url=\1
+regexi^.*\.zip$) http://[yourproxyip]/cgi-bin/viralator.cgi?url=\1 
+regexi (^.*\.doc$) http://[yourproxyip]/cgi-bin/viralator.cgi?url=\1 
+regexi (^.*\.exe$) http://[yourproxyip]/cgi-bin/viralator.cgi?url=\1
+</pre>
+<P>
+Continue agregando lineas para cada tipo de archivo que desee escanear con el antivirus. Recuerde cambiar [yourproxyip]
+por la direccion ip real de su servidor proxy, o su nombre (si se puede resolver con una direccion ip).
+
+<P>
+Recuerde anadir abortregexi para los sitios en los que quiera evitar el escaneo de archivos o en los que tenga problemas con los url y al final del archivo squirm.patterns anada lineas regexi, de lo contrario el abort no sera contrastado:
+<pre>
+abortregexi (^http://[your proxy ip].*) #eg (^http://192.168.100.1/.*)
+abortregexi (^http://[your proxy fully qualified domain name].*) 
+</pre>
+
+  <li>Cree un directorio dentro del servidor web (en el directorio htdocs o html) llamado 'downloads' y establezca sus permisos a 755. Copie este script en el directorio cgi-bin 
+  <li>Cambie el propietario y el grupo al que pertenece viralator.cgi por el usuario que ejecuta Apache (chown
+apache.apache viralator.cgi, por ejemplo, considerando que su servidor Apache usa "apache" como usuario).
+  <li>Asegurese de tener los permisos de archivo correctos para este script. Use "chmod 550 viralator.cgi"
+  <li>Reinicie Squid y Apache para que los cambio tengan efecto.
+  <li> Intente descargar un archivo zip, si no funciona consulte los registros de error de Apache o el registro de Squirm en squirm.log
+  <li>Dirijase a  <A HREF="http://viralator.loddington.com">http://viralator.loddington.com</A> e intente descargar mi archivo zip de prueba. Este contiene el archivo de firmas del virus eicar test. No es un virus real y no provoca ningun dano pero sera detectado por la mayoria de antivirus.
+  <li> Mire en las FAQ para ver las soluciones a algunos problemas comunes y para saber como hacer que wget use el proxy para que las descargas sean incluidas en el cache.
+</ol>
+
+<h3>Usando Suexec de Apache</h3>
+
+<P>
+Apache suexec no es necesario si el programa antivirus esta disponible para todos los usuarios. Los primeros pasos difieren de los de la instalacion normal, el resto permanece igual:
+
+<OL>
+  <LI>Cree un usuario y un grupo para que los use suexec. Yo he llamado a los mios viralator. Puede ignorar esto si no esta usando suexec. 
+  <LI>Anada la informacion de usuario y grupo al archivo vhosts.conf o httpd.conf de Apache. Esto habilita suexec. Aqui se muestra un ejemplo de un archivo vhosts.conf:
+<pre>
+<VirtualHost 192.168.100.1>
+ServerAdmin webmaster@loddington.com 
+DocumentRoot /var/www/html 
+ServerName proxy.loddington.com 
+ErrorLog logs/error_log 
+TransferLog logs/access_log 
+ScriptAlias /cgi-bin/ /var/www/cgi-bin/ 
+User viralator 
+Group viralator 
+</VirtualHost>
+</pre>
+
+  <LI>Cree un directorio en un area visible del servidor web (dentro del directorio htdocs o html) llamado 'downloads' y establezca los permisos a 755. Copie este script en el directorio cgi-bin
+  <li>Cambie el propietario y el grupo al que pertenece viralatorc.cgi por el usuario que ejecuta Apache (chown
+apache.apache viralator.cgi, por ejemplo, considerando que su servidor Apache usa el como usuario "apache")
+  <li>Asegurese de tener los permisos de archivo correctos para este script. Use "chmod 550 viralator.cgi"
+  <li>Reinicie Squid y Apache para que los cambio tengan efecto.
+  <li> Intente descargar un archivo zip, si no funciona consulte los registros de error de Apache o el registro de Squirm en squirm.log
+  <li>Dirijase a  <A HREF="http://viralator.loddington.com">http://viralator.loddington.com</A> e intente descargar mi archivo zip de prueba. Este contiene el archivo de firmas del virus eicar test. No es un virus real y no provoca ningun dano pero sera detectado por la mayoria de antivirus.
+  <li> Mire en las FAQ para ver las soluciones a algunos problemas comunes y para saber como hacer que wget use el proxy para que las descargas sean incluidas en el cache.
+</ol>
+
+<h3>Otras instrucciones</h3>
+
+<OL>
+  <LI>Si ha instalado squirm 1.0 quite el simbolo ^ de cada linea.
+  <LI>Edite el archivo squid.conf agregando a squirm como programa de redireccion con las siguientes lineas
+redirect_program /usr/squid/bin/squirm
+redirect_children 10
+</OL>
+
+
+<p>Las aportaciones son siempre bienvenidas.</p>
+
+</BODY>
+</HTML>
+
